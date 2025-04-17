@@ -58,7 +58,18 @@ public class AppRunner {
         print(" a - Пополнить баланс");
         showActions(products);
         print(" h - Выйти");
-        String action = fromConsole().substring(0, 1);
+        String action = fromConsole();
+
+        if (action.length() != 1) {
+            print("Некорректная команда. Введите одну букву из доступных вариантов.");
+            return;
+        }
+        action = action.substring(0, 1);
+
+        if ("h".equalsIgnoreCase(action)) {
+            isExit = true;
+            return;
+        }
         if ("a".equalsIgnoreCase(action)) {
             coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
             print("Вы пополнили баланс на 10");
@@ -73,15 +84,9 @@ public class AppRunner {
                 }
             }
         } catch (IllegalArgumentException e) {
-            if ("h".equalsIgnoreCase(action)) {
-                isExit = true;
-            } else {
-                print("Недопустимая буква. Попрбуйте еще раз.");
-                chooseAction(products);
-            }
+            print("Недопустимая буква. Попробуйте еще раз.");
+            chooseAction(products);
         }
-
-
     }
 
     private void showActions(UniversalArray<Product> products) {
