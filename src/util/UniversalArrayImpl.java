@@ -65,6 +65,4 @@ public class UniversalArrayImpl<T> implements UniversalArray<T> {
     public Object[] toArray() {
         return Arrays.copyOf(array, array.length, Object[].class);
     }
-
-
 }

@@ -14,3 +14,11 @@ git add src/AppRunner.java
 git add commands.txt
 git commit -m "Fixed bugs with data input"
 git push origin home_work_25
+
+git add commands.txt
+git add src/AppRunner.java
+git add src/model/Wallet.java
+git add src/util/UniversalArrayImpl.java
+git status
+git commit -m "Refactor(wallet): rename CoinAcceptor to Wallet and added increase/decrease methods"
+git push origin home_work_25
