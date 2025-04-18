@@ -25,8 +25,15 @@ git push origin home_work_25
 
 git status
 git add commands.txt
-git src/payments/Acceptable.java
-git src/payments/CoinAcceptor.java
+git add src/payments/Acceptable.java
+git add src/payments/CoinAcceptor.java
 git status
 git commit -m "Added package payments for new Acceptable interface and refactor CoinAcceptor"
+git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/payments/BankService.java
+git status
+git commit -m "Added new BankService class for product purchases"
 git push origin home_work_25
