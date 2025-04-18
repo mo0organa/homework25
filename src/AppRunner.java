@@ -10,6 +10,7 @@ public class AppRunner {
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
     private static boolean isExit = false;
     private final Wallet wallet;
+    private final Acceptable[] payments;
 
     private AppRunner() {
         products.addAll(new Product[]{
@@ -21,6 +22,10 @@ public class AppRunner {
                 new Pistachios(ActionLetter.G, 130)
         });
         this.wallet = new Wallet(100);
+        payments = new Acceptable[]{
+                new CardAcceptor(),
+                new CoinAcceptor()
+        };
     }
 
     public static void run() {
@@ -70,14 +75,14 @@ public class AppRunner {
             try {
                 Acceptable paymentAcceptor;
                 while (true){
-                    print("w - Card\ne - Coins");
+                    print("w - Card\nz - Coins");
                     String paymentMethod = fromConsole();
                     switch (paymentMethod) {
                         case "w":
-                            paymentAcceptor = new CardAcceptor();
+                            paymentAcceptor = payments[0];
                             break;
-                        case "e":
-                            paymentAcceptor = new CoinAcceptor();
+                        case "z":
+                            paymentAcceptor = payments[1];
                             break;
                         default:
                             continue;

@@ -26,7 +26,7 @@ public class CoinAcceptor implements Acceptable {
 
             String input = sc.nextLine().trim();
             if ("q".equalsIgnoreCase(input)) {
-                System.out.println("Ввод монет завершён, всего внесено: " + sum);
+                System.out.printf("Ввод монет завершён, всего внесено: %f%n", sum);
                 break;
             }
 
@@ -34,9 +34,9 @@ public class CoinAcceptor implements Acceptable {
                 int coin = Integer.parseInt(input);
                 if (isAllowed(coin)) {
                     sum += coin;
-                    System.out.println("Принято: " + coin + ". Ваш баланс: " + sum);
+                    System.out.printf("Принято: %d. Ваш баланс: %.2f%n", coin, sum);
                 } else {
-                    System.out.println("Монета номиналом " + coin + " не принимается.");
+                    System.out.printf("Монета номиналом %d не принимается.%n", coin);
                 }
             } catch (NumberFormatException ex) {
                 System.out.println("Некорректный ввод! Введите число или 'q' для завершения ввода.");

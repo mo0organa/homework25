@@ -14,7 +14,7 @@ public class CardAcceptor implements Acceptable {
 
         if (bankService.isExist(cardNumber)) {
             if (bankService.PerformTransaction(cardNumber, pin, amount)) {
-                System.out.println("Транзакция успешно проведена: списано " + amount);
+                System.out.printf("Транзакция успешно проведена: списано %.2f%n", amount);
                 listener.increaseAmount(amount);
             }
             else {
@@ -32,7 +32,7 @@ public class CardAcceptor implements Acceptable {
             String cardNumber = sc.nextLine().trim();
 
             if (cardNumber.isEmpty()) {
-                System.out.println("Поле ввода не может быть пустым!");
+                System.out.print("Поле ввода не может быть пустым!");
                 continue;
             }
             if (cardNumber.length() != length) {
@@ -55,7 +55,7 @@ public class CardAcceptor implements Acceptable {
     }
 
     private String readCardNumber() {
-        return readNumber("номер карты", 16);
+        return readNumber("номер карты ", 16);
     }
 
     private String readPin() {
