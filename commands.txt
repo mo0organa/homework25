@@ -1,0 +1,81 @@
+git clone https://github.com/mo0organa/homework25.git
+cd homework25
+git checkout home_work_25
+touch commands.txt
+git merge origin/master
+
+git add commands.txt
+git status
+git commit -m "Added commands.txt with initial list of commands"
+git push origin home_work_25
+
+git status
+git add src/AppRunner.java
+git add commands.txt
+git commit -m "Fixed bugs with data input"
+git push origin home_work_25
+
+git add commands.txt
+git add src/AppRunner.java
+git add src/model/Wallet.java
+git add src/util/UniversalArrayImpl.java
+git status
+git commit -m "Refactor(wallet): rename CoinAcceptor to Wallet and added increase/decrease methods"
+git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/payments/Acceptable.java
+git add src/payments/CoinAcceptor.java
+git status
+git commit -m "Added package payments for new Acceptable interface and refactor CoinAcceptor"
+git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/payments/BankService.java
+git status
+git commit -m "Added new BankService class for product purchases"
+git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/AppRunner.java
+git add src/payments/Acceptable.java
+git add src/payments/CoinAcceptor.java
+git commit -m "In payments added and refactor logic CoinAcceptor.java"
+git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/AppRunner.java
+git add src/model/Wallet.java
+git add src/payments/Acceptable.java
+git add src/payments/CardAcceptor.java
+git add src/payments/PaymentException.java
+git add src/payments/bankService/BankService.java
+git add src/payments/bankService/Card.java
+git add src/payments/bankService/CardNotFoundException.java
+git commit -m "Refactor and added integration CardAcceptor for payment method"
+git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/AppRunner.java
+git add src/payments/Acceptable.java
+git add src/payments/CardAcceptor.java
+git add src/payments/CoinAcceptor.java
+git add src/payments/PaymentListener.java
+git add src/payments/Wallet.java
+git commit -m "Added PaymentListener interface and integrated it with CoinAcceptor for synchronous handling of different payment methods"
+git status
+git push origin home_work_25
+
+git status
+git add .gitignore
+git add src/AppRunner.java
+git add src/payments/CardAcceptor.java
+git add src/payments/CoinAcceptor.java
+git add commands.txt
+git commit -m "Fixed card deduction logic and improve output formatting"
+git push origin home_work_25

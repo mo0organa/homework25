@@ -1,17 +1,16 @@
 import enums.ActionLetter;
 import model.*;
+import payments.*;
 import util.UniversalArray;
 import util.UniversalArrayImpl;
-
 import java.util.Scanner;
 
 public class AppRunner {
 
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
-
-    private final CoinAcceptor coinAcceptor;
-
     private static boolean isExit = false;
+    private final Wallet wallet;
+    private final Acceptable[] payments;
 
     private AppRunner() {
         products.addAll(new Product[]{
@@ -22,7 +21,11 @@ public class AppRunner {
                 new Mars(ActionLetter.F, 80),
                 new Pistachios(ActionLetter.G, 130)
         });
-        coinAcceptor = new CoinAcceptor(100);
+        this.wallet = new Wallet(100);
+        payments = new Acceptable[]{
+                new CardAcceptor(),
+                new CoinAcceptor()
+        };
     }
 
     public static void run() {
@@ -36,18 +39,16 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
 
-        print("Монет на сумму: " + coinAcceptor.getAmount());
-
+        print("Баланс составляет на сумму: " + wallet.getBalance());
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
         chooseAction(allowProducts);
-
     }
 
     private UniversalArray<Product> getAllowedProducts() {
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         for (int i = 0; i < products.size(); i++) {
-            if (coinAcceptor.getAmount() >= products.get(i).getPrice()) {
+            if (wallet.getBalance() >= products.get(i).getPrice()) {
                 allowProducts.add(products.get(i));
             }
         }
@@ -58,30 +59,59 @@ public class AppRunner {
         print(" a - Пополнить баланс");
         showActions(products);
         print(" h - Выйти");
-        String action = fromConsole().substring(0, 1);
+        String action = fromConsole();
+
+        if (action.length() != 1) {
+            print("Некорректная команда. Введите одну букву из доступных вариантов.");
+            return;
+        }
+        action = action.substring(0, 1);
+
+        if ("h".equalsIgnoreCase(action)) {
+            isExit = true;
+            return;
+        }
         if ("a".equalsIgnoreCase(action)) {
-            coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
-            print("Вы пополнили баланс на 10");
+            try {
+                Acceptable paymentAcceptor;
+                while (true){
+                    print("w - Card\nz - Coins");
+                    String paymentMethod = fromConsole();
+                    switch (paymentMethod) {
+                        case "w":
+                            paymentAcceptor = payments[0];
+                            break;
+                        case "z":
+                            paymentAcceptor = payments[1];
+                            break;
+                        default:
+                            continue;
+                    }
+                    break;
+                }
+
+                paymentAcceptor.proceedPayment(wallet);
+            } catch (PaymentException ex) {
+                print("Ошибка: " + ex.getMessage());
+            }
             return;
         }
         try {
             for (int i = 0; i < products.size(); i++) {
-                if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
-                    coinAcceptor.setAmount(coinAcceptor.getAmount() - products.get(i).getPrice());
-                    print("Вы купили " + products.get(i).getName());
-                    break;
+                Product product = products.get(i);
+                if (product.getActionLetter().getValue().equals(action)) {
+                    if (wallet.decreaseAmount(product.getPrice())) {
+                        print("Вы купили " + product.getName());
+                    } else{
+                        print("Недостаточно средств для покупки " + product.getName());
+                    }
+                    return;
                 }
             }
         } catch (IllegalArgumentException e) {
-            if ("h".equalsIgnoreCase(action)) {
-                isExit = true;
-            } else {
-                print("Недопустимая буква. Попрбуйте еще раз.");
-                chooseAction(products);
-            }
+            print("Недопустимая буква. Попробуйте еще раз.");
+            chooseAction(products);
         }
-
-
     }
 
     private void showActions(UniversalArray<Product> products) {
