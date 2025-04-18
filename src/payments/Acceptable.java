@@ -1,5 +1,5 @@
 package payments;
 
 public interface Acceptable {
-    double proceedPayment() throws PaymentException;
+    void proceedPayment(PaymentListener listener) throws PaymentException;
 }

@@ -17,7 +17,7 @@ public class CoinAcceptor implements Acceptable {
         System.out.println();
     }
 
-    public double proceedPayment() {
+    public void proceedPayment(PaymentListener listener) {
         double sum = 0;
 
         while (true) {
@@ -42,7 +42,7 @@ public class CoinAcceptor implements Acceptable {
                 System.out.println("Некорректный ввод! Введите число или 'q' для завершения ввода.");
             }
         }
-        return sum;
+        listener.increaseAmount(sum);
     }
 
     private boolean isAllowed(int coin) {

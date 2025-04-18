@@ -7,7 +7,7 @@ public class CardAcceptor implements Acceptable {
     private final Scanner sc = new Scanner(System.in);
 
     @Override
-    public double proceedPayment() throws PaymentException {
+    public void proceedPayment(PaymentListener listener) throws PaymentException {
         String cardNumber = readCardNumber();
         String pin = readPin();
         double amount = readAmount();
@@ -15,7 +15,7 @@ public class CardAcceptor implements Acceptable {
         if (bankService.isExist(cardNumber)) {
             if (bankService.PerformTransaction(cardNumber, pin, amount)) {
                 System.out.println("Транзакция успешно проведена: списано " + amount);
-                return amount;
+                listener.increaseAmount(amount);
             }
             else {
                 throw new PaymentException("Неверный PIN или недостаточно средств на карте!");

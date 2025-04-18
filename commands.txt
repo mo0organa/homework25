@@ -58,3 +58,14 @@ git add src/payments/bankService/Card.java
 git add src/payments/bankService/CardNotFoundException.java
 git commit -m "Refactor and added integration CardAcceptor for payment method"
 git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/AppRunner.java
+git add src/payments/Acceptable.java
+git add src/payments/CardAcceptor.java
+git add src/payments/CoinAcceptor.java
+git add src/payments/PaymentListener.java
+git commit -m "Added PaymentListener interface and integrated it with CoinAcceptor for synchronous handling of different payment methods"
+git status
+git push origin home_work_25
