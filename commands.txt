@@ -22,3 +22,11 @@ git add src/util/UniversalArrayImpl.java
 git status
 git commit -m "Refactor(wallet): rename CoinAcceptor to Wallet and added increase/decrease methods"
 git push origin home_work_25
+
+git status
+git add commands.txt
+git src/payments/Acceptable.java
+git src/payments/CoinAcceptor.java
+git status
+git commit -m "Added package payments for new Acceptable interface and refactor CoinAcceptor"
+git push origin home_work_25
