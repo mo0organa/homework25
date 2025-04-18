@@ -66,6 +66,7 @@ git add src/payments/Acceptable.java
 git add src/payments/CardAcceptor.java
 git add src/payments/CoinAcceptor.java
 git add src/payments/PaymentListener.java
+git add src/payments/Wallet.java
 git commit -m "Added PaymentListener interface and integrated it with CoinAcceptor for synchronous handling of different payment methods"
 git status
 git push origin home_work_25

@@ -1,26 +1,27 @@
-package model;
+package payments;
 
-public class Wallet {
-    private double amount;
+public class Wallet implements PaymentListener {
+    private double balance;
 
     public Wallet(double amount) {
-        this.amount = amount;
+        this.balance = amount;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
+    @Override
     public void increaseAmount(double amount) {
-        this.amount += amount;
+        this.balance += amount;
     }
 
     public boolean decreaseAmount(double amount) {
-        this.amount -= amount;
+        this.balance -= amount;
         return false;
     }
 }
