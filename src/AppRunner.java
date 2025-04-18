@@ -1,7 +1,8 @@
 import enums.ActionLetter;
 import model.*;
 import payments.Acceptable;
-import payments.CoinAcceptor;
+import payments.CardAcceptor;
+import payments.PaymentException;
 import util.UniversalArray;
 import util.UniversalArrayImpl;
 
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class AppRunner {
 
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
-    private final Acceptable paymentAcceptor = new CoinAcceptor();
+    private final Acceptable paymentAcceptor = new CardAcceptor();
     private static boolean isExit = false;
     private final Wallet wallet;
 
@@ -37,7 +38,7 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
 
-        print("Монет на сумму: " + wallet.getAmount());
+        print("Баланс составляет на сумму: " + wallet.getAmount());
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
         chooseAction(allowProducts);
@@ -70,7 +71,13 @@ public class AppRunner {
             return;
         }
         if ("a".equalsIgnoreCase(action)) {
-            wallet.increaseAmount(paymentAcceptor.proceedPayment());
+            try {
+                //TODO: Add option to choose pyament method
+                wallet.increaseAmount(paymentAcceptor.proceedPayment());
+            } catch (PaymentException ex) {
+                print("Error: " + ex.getMessage());
+            }
+
             return;
         }
         try {

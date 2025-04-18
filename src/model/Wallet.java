@@ -1,25 +1,25 @@
 package model;
 
 public class Wallet {
-    private int amount;
+    private double amount;
 
-    public Wallet(int amount) {
+    public Wallet(double amount) {
         this.amount = amount;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public void increaseAmount(int amount) {
+    public void increaseAmount(double amount) {
         this.amount += amount;
     }
 
-    public boolean decreaseAmount(int amount) {
+    public boolean decreaseAmount(double amount) {
         this.amount -= amount;
         return false;
     }
