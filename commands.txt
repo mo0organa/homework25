@@ -37,3 +37,11 @@ git add src/payments/BankService.java
 git status
 git commit -m "Added new BankService class for product purchases"
 git push origin home_work_25
+
+git status
+git add commands.txt
+git add src/AppRunner.java
+git add src/payments/Acceptable.java
+git add src/payments/CoinAcceptor.java
+git commit -m "In payments added and refactor logic CoinAcceptor.java"
+git push origin home_work_25

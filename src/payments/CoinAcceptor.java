@@ -5,25 +5,28 @@ import java.util.Scanner;
 public class CoinAcceptor implements Acceptable {
     private final static int[] coins = {1, 3, 5, 10, 20, 25, 50};
     private final Scanner sc = new Scanner(System.in);
-    private int balance = 0;
 
 
-    @Override
-    public void proceedPayment() {
-        double sum = 0;
-        while (true) {
-            System.out.print("Вставьте монету или введите 'q' для завершения ввода ");
-            for (int i = 0; i < coins.length; i++) {
-                System.out.println(coins[i]);
-                if (i < coins.length - 1) {
-                    System.out.println(", ");
-                }
+    public void printCoinOptions() {
+        for (int i = 0; i < coins.length; i++) {
+            System.out.print(coins[i]);
+            if (i < coins.length - 1) {
+                System.out.print(" ");
             }
-            System.out.print("): ");
+        }
+        System.out.println();
+    }
+
+    public double proceedPayment() {
+        double sum = 0;
+
+        while (true) {
+            System.out.print("Вставьте монету или введите 'q' для завершения ввода: ");
+            printCoinOptions();
 
             String input = sc.nextLine().trim();
             if ("q".equalsIgnoreCase(input)) {
-                System.out.println("Ввод монет завершен, вы внесли всего монет: " + sum);
+                System.out.println("Ввод монет завершён, всего внесено: " + sum);
                 break;
             }
 
@@ -31,38 +34,15 @@ public class CoinAcceptor implements Acceptable {
                 int coin = Integer.parseInt(input);
                 if (isAllowed(coin)) {
                     sum += coin;
-                    System.out.println("Принято:" + coin + "Текущий баланс пополнения: " + sum);
+                    System.out.println("Принято: " + coin + ". Ваш баланс: " + sum);
                 } else {
-                    System.out.println("Монета номиналом " + coin + " не принимается. Допустимые: 1, 3, 5, 10, 20, 25, 50.");
+                    System.out.println("Монета номиналом " + coin + " не принимается.");
                 }
             } catch (NumberFormatException ex) {
-                System.out.println("Некорректный ввод. Введите число (номинал монеты) или 'q' для выхода.");
+                System.out.println("Некорректный ввод! Введите число или 'q' для завершения ввода.");
             }
         }
-    }
-
-    @Override
-    public void cancelPayment() {
-        balance = 0;
-    }
-
-    @Override
-    public int getBalance() {
-        return balance;
-    }
-
-    @Override
-    public boolean decreaseBalance() {
-        return false;
-    }
-
-    @Override
-    public boolean decreaseBalance(int price) {
-        if (balance >= price) {
-            balance -= price;
-            return true;
-        }
-        return false;
+        return sum;
     }
 
     private boolean isAllowed(int coin) {

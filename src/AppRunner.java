@@ -1,5 +1,7 @@
 import enums.ActionLetter;
 import model.*;
+import payments.Acceptable;
+import payments.CoinAcceptor;
 import util.UniversalArray;
 import util.UniversalArrayImpl;
 
@@ -8,6 +10,7 @@ import java.util.Scanner;
 public class AppRunner {
 
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
+    private final Acceptable paymentAcceptor = new CoinAcceptor();
     private static boolean isExit = false;
     private final Wallet wallet;
 
@@ -35,11 +38,9 @@ public class AppRunner {
         showProducts(products);
 
         print("Монет на сумму: " + wallet.getAmount());
-
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
         chooseAction(allowProducts);
-
     }
 
     private UniversalArray<Product> getAllowedProducts() {
@@ -69,8 +70,7 @@ public class AppRunner {
             return;
         }
         if ("a".equalsIgnoreCase(action)) {
-            wallet.increaseAmount(10);
-            print("Вы пополнили баланс на 10");
+            wallet.increaseAmount(paymentAcceptor.proceedPayment());
             return;
         }
         try {
